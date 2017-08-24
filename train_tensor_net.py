@@ -28,6 +28,7 @@ import tensorflow as tf
 from utils import *
 import shutil
 
+
 def train_vgg_tt(training_generator,testing_generator,steps,path,tt_parameters,nb_classes=10,batch_size=128):
     if not os.path.isdir(path):
         os.mkdir(path)
@@ -57,7 +58,7 @@ config.gpu_options.allow_growth=True
 sess = tf.Session(config=config)
 sess.as_default()
 
-stringOfHistory = './Run4/'
+stringOfHistory = './Run5/'
 batch_size = 100
 nb_classes = 10
 dataset = cifar10

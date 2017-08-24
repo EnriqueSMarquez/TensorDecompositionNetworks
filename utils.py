@@ -107,8 +107,7 @@ def _generate_orthogonal_tt_cores(input_shape, output_shape, ranks):
         input_shape = np.array(input_shape)
         output_shape = np.array(output_shape)
         ranks = np.array(ranks)
-        cores_arr_len = np.sum(input_shape * output_shape *
-                               ranks[1:] * ranks[:-1])
+        cores_arr_len = np.sum(input_shape * output_shape * ranks[1:] * ranks[:-1])
         cores_arr = np.zeros(cores_arr_len).astype(K.floatx())
         cores_arr_idx = 0
         core_list = []
