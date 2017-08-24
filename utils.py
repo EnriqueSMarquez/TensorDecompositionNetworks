@@ -192,7 +192,7 @@ class TensorTrainDense(Layer):
         return (input_shape[0], self.output_dim)
 
 
-def get_vgg_style_net(tt_parameters,input_shape=(32,32,3),blocks=[3,3],outNeurons=512,init_filters=16,dropout=False,nb_classes=10,weightDecay=10.e-3):
+def get_vgg_style_net_tt(tt_parameters,input_shape=(32,32,3),blocks=[3,3],outNeurons=512,init_filters=16,dropout=False,nb_classes=10,weightDecay=10.e-3):
   inputs = Input(batch_shape=input_shape)
   x = Conv2D(init_filters,3,kernel_regularizer=l2(weightDecay),padding='same',activation='relu')(inputs)
   blocks[0] -= 1

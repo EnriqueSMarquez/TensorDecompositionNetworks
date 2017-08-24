@@ -33,7 +33,7 @@ def train_vgg_tt(training_generator,testing_generator,steps,path,tt_parameters,n
         os.mkdir(path)
     infoCallback = EnriquesCallback(testing_generator,steps[1],path,0.1,evaluate=True)
     save_best_callback = ModelCheckpoint(path+'best_model.h5',monitor='val_acc',verbose=1,mode='max',save_best_only=True)
-    model = get_vgg_style_net(tt_parameters,input_shape=(batch_size,32,32,3),blocks=[3,3,3],outNeurons=512,init_filters=64,dropout=True,nb_classes=nb_classes,weightDecay=10.e-4)
+    model = get_vgg_style_net_tt(tt_parameters,input_shape=(batch_size,32,32,3),blocks=[3,3,3],outNeurons=512,init_filters=64,dropout=True,nb_classes=nb_classes,weightDecay=10.e-4)
     sgd = SGD(lr=0.1, momentum=0.9)
     if os.path.isfile(path +'model.h5'):
         model.load_weights(path+'model.h5', by_name=True)
