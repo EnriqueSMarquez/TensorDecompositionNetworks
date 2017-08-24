@@ -98,8 +98,8 @@ testing_generator = datagen.flow(X_test,Y_test,batch_size=batch_size)
 #PRECISION AND PIXEL VALUES IN THE RANGE FROM 0 T#O 1
 tt_input_shape = [16,16,16]
 # tt_output_shape = [2,4,2,4,2,4]
-tt_output_shape = [4,2,4]
-tt_ranks = [8,8,8,4]
+tt_output_shape = [4,4,4]
+tt_ranks = [8,8,8,8]
 print(stringOfHistory)
 train_vgg_tt(training_generator,testing_generator,steps=(steps_training,steps_testing),path=stringOfHistory,tt_parameters=[tt_input_shape,tt_output_shape,tt_ranks],nb_classes=nb_classes,batch_size=batch_size)
 pass
