@@ -172,6 +172,7 @@ class TensorTrainDense(Layer):
         res = x
         # TODO: it maybe faster to precompute the indices in advance.
         core_arr_idx = 0
+        #NO GOOD THIS FOR LOOP
         for k in range(self.num_dim - 1, -1, -1):
             curr_shape = [self.tt_input_shape[k] * self.tt_ranks[k + 1], self.tt_ranks[k] * self.tt_output_shape[k]]
             curr_core = K.reshape(self.kernel[core_arr_idx:core_arr_idx+np.prod(curr_shape).astype(int)],curr_shape)
