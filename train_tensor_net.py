@@ -58,7 +58,7 @@ config.gpu_options.allow_growth=True
 sess = tf.Session(config=config)
 sess.as_default()
 
-stringOfHistory = './Run5/'
+stringOfHistory = './Run1/'
 batch_size = 100
 nb_classes = 10
 dataset = cifar10
@@ -96,10 +96,10 @@ testing_generator = datagen.flow(X_test,Y_test,batch_size=batch_size)
 
 
 #PRECISION AND PIXEL VALUES IN THE RANGE FROM 0 T#O 1
-tt_input_shape = [4,4,4,4,4,4]
+tt_input_shape = [16,16,16]
 # tt_output_shape = [2,4,2,4,2,4]
-tt_output_shape = [5,4,5,4,5,2]
-tt_ranks = [8,8,8,8,8,8,8]
+tt_output_shape = [4,2,4]
+tt_ranks = [8,8,8,4]
 print(stringOfHistory)
 train_vgg_tt(training_generator,testing_generator,steps=(steps_training,steps_testing),path=stringOfHistory,tt_parameters=[tt_input_shape,tt_output_shape,tt_ranks],nb_classes=nb_classes,batch_size=batch_size)
 pass
