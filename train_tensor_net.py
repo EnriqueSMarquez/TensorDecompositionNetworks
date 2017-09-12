@@ -3,9 +3,9 @@ from __future__ import print_function
 from keras.layers import Input
 from keras.models import Model
 from keras.optimizers import Adam
-from dense_tensor import DenseTensor, tensor_factorization_low_rank
+# from dense_tensor import DenseTensor, tensor_factorization_low_rank
 
-from dense_tensor.utils import l1l2
+# from dense_tensor.utils import l1l2
 from keras.regularizers import l2
 import keras
 # from dense_tensor.example_utils import experiment
@@ -32,10 +32,10 @@ import shutil
 def train_vgg_tt(training_generator,testing_generator,steps,path,tt_parameters,nb_classes=10,batch_size=128):
     if not os.path.isdir(path):
         os.mkdir(path)
-    infoCallback = EnriquesCallback(testing_generator,steps[1],path,0.1,evaluate=True)
+    infoCallback = EnriquesCallback(testing_generator,steps[1],path,0.01,evaluate=True)
     save_best_callback = ModelCheckpoint(path+'best_model.h5',monitor='val_acc',verbose=1,mode='max',save_best_only=True)
-    model = get_vgg_style_net_tt(tt_parameters,input_shape=(batch_size,32,32,3),blocks=[3,3,3],outNeurons=512,init_filters=64,dropout=True,nb_classes=nb_classes,weightDecay=10.e-4)
-    sgd = SGD(lr=0.1, momentum=0.9)
+    model = get_vgg_style_net_tt(tt_parameters,input_shape=(32,32,3),blocks=[3,3,3],outNeurons=512,init_filters=64,dropout=True,nb_classes=nb_classes,weightDecay=10.e-4)
+    sgd = SGD(lr=0.01, momentum=0.9)
     if os.path.isfile(path +'model.h5'):
         model.load_weights(path+'model.h5', by_name=True)
     #datagen.flow(testing_data[0],testing_data[1],batch_size=128)
@@ -59,7 +59,7 @@ sess = tf.Session(config=config)
 sess.as_default()
 
 stringOfHistory = './Run1/'
-batch_size = 100
+batch_size = 128
 nb_classes = 10
 dataset = cifar10
 (X_train, y_train), (X_test, y_test) = dataset.load_data() #GET DATA
@@ -94,13 +94,14 @@ datagen.fit(X_train)
 training_generator = datagen.flow(X_train,Y_train,batch_size=batch_size)
 testing_generator = datagen.flow(X_test,Y_test,batch_size=batch_size)
 
-
 #PRECISION AND PIXEL VALUES IN THE RANGE FROM 0 T#O 1
-tt_input_shape = [16,16,16]
+tt_input_shape = [4,4,4,4,4,4]
 # tt_output_shape = [2,4,2,4,2,4]
-tt_output_shape = [4,4,4]
-tt_ranks = [8,8,8,8]
+tt_output_shape = [2,2,2,2,2,2]
+# tt_ranks = [8,8,8,8,8,8,8]
+tt_ranks = [8,8,8,8,8,8,8]
 print(stringOfHistory)
+print(str([tt_input_shape,tt_output_shape,tt_ranks]))
 train_vgg_tt(training_generator,testing_generator,steps=(steps_training,steps_testing),path=stringOfHistory,tt_parameters=[tt_input_shape,tt_output_shape,tt_ranks],nb_classes=nb_classes,batch_size=batch_size)
 pass
 
